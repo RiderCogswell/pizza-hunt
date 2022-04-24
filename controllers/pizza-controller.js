@@ -6,6 +6,15 @@ const pizzaController = {
     getAllPizza(req, res) {
         // mongoose .find() method, very much like sequelize's .findAll()
         Pizza.find({})
+        .populate({
+            path: 'comments',
+            // removes from comment data returned
+            select: '-__v'
+        })
+        // removes from pizza data returned
+        .select('-__v')
+        // sort in descending order by _id, always giving newest pizza first
+        .sort({ _id: -1 })
         .then(dbPizzaData => res.json(dbPizzaData))
         .catch(err => {
             console.log(err);
@@ -17,6 +26,11 @@ const pizzaController = {
     // instead of accessing req, we destructure params out of it
     getPizzaById({ params }, res) {
         Pizza.findOne({ _id: params.id })
+        .populate({
+            path: 'comments',
+            select: ('-__v')
+        })
+        .select('-__v')
         .then(dbPizzaData => {
             // if no pizza is found, send 404
             if (!dbPizzaData) {
