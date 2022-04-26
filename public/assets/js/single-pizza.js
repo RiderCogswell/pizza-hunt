@@ -1,5 +1,3 @@
-const res = require("express/lib/response");
-
 const $backBtn = document.querySelector('#back-btn');
 const $pizzaName = document.querySelector('#pizza-name');
 const $createdBy = document.querySelector('#created-by');
