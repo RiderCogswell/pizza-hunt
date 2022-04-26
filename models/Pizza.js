@@ -4,10 +4,14 @@ const dateFormat = require('../utils/dateFormat');
 // since we are using NoSQL, we don't have to define the fields, but for clarity and usability we should regulate what the data will look like
 const PizzaSchema = new Schema({
     pizzaName: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     createdBy: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     createdAt: {
         type: Date, 
@@ -17,6 +21,9 @@ const PizzaSchema = new Schema({
     },
     size: {
         type: String,
+        required: true,
+        // stands for enumerable, works likea for...in... loop to iterate through object and enforce only stated vars
+        enum: ['Personal', 'Small', 'Medium', 'Large', 'Extra Large'],
         default: 'Large'
     },
     // or we could specify the type as array
